@@ -81,6 +81,7 @@ type triggerName string
 
 var (
 	triggerPullRequestTarget = triggerName("pull_request_target")
+	workflowRunTarget        = triggerName("workflow_run")
 	triggerPullRequest       = triggerName("pull_request")
 )
 
@@ -171,7 +172,7 @@ func validateSecretsInPullRequests(workflow *actionlint.Workflow, path string,
 
 func validateUntrustedCodeCheckout(workflow *actionlint.Workflow, path string,
 	dl checker.DetailLogger, pdata *patternCbData) error {
-	if !usesEventTrigger(workflow, triggerPullRequestTarget) {
+	if !usesEventTrigger(workflow, triggerPullRequestTarget) && !usesEventTrigger(workflow, workflowRunTarget) {
 		return nil
 	}
 
@@ -296,7 +297,8 @@ func checkJobForUntrustedCodeCheckout(job *actionlint.Job, path string,
 		if !ok || ref.Value == nil {
 			continue
 		}
-		if strings.Contains(ref.Value.Value, "github.event.pull_request") {
+		if strings.Contains(ref.Value.Value, "github.event.pull_request") ||
+		   strings.Contains(ref.Value.Value, "github.event.workflow_run") {
 			line := fileparser.GetLineNumber(step.Pos)
 			dl.Warn(&checker.LogMessage{
 				Path:    path,
