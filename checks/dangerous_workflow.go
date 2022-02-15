@@ -298,7 +298,7 @@ func checkJobForUntrustedCodeCheckout(job *actionlint.Job, path string,
 			continue
 		}
 		if strings.Contains(ref.Value.Value, "github.event.pull_request") ||
-		   strings.Contains(ref.Value.Value, "github.event.workflow_run") {
+			strings.Contains(ref.Value.Value, "github.event.workflow_run") {
 			line := fileparser.GetLineNumber(step.Pos)
 			dl.Warn(&checker.LogMessage{
 				Path:    path,
