@@ -264,8 +264,8 @@ logging github context and secrets, or use of potentially untrusted inputs in sc
 The following patterns are checked:
 
 Untrusted Code Checkout: This is the misuse of potentially dangerous triggers. 
-This checks if a `pull_request_target` workflow trigger was used in conjunction 
-with an explicit pull request checkout. Workflows triggered with `pull_request_target`
+This checks if a `pull_request_target` or `workflow_run` workflow triggers were used in conjunction 
+with an explicit pull request checkout. Workflows triggered with `pull_request_target/workflow_run`
 have write permission to the target repository and access to target repository 
 secrets. With the PR checkout, PR authors may compromise the repository, for 
 example, by using build scripts controlled by the author of the PR or reading 
