@@ -49,7 +49,7 @@ func TestGithubDangerousWorkflow(t *testing.T) {
 			expected: scut.TestReturn{
 				Error:         nil,
 				Score:         checker.MinResultScore,
-				NumberOfWarn:  1,
+				NumberOfWarn:  2,
 				NumberOfInfo:  0,
 				NumberOfDebug: 0,
 			},
